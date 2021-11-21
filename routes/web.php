@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,8 +16,19 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('index');
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', 'HomeController@index')->name('home');
+Route::middleware(['auth', 'staff'])->prefix('staff')->group(function () {
+
+Route::get('dashboard', 'StaffController@index')->name('staffdashboard');
+
+});
+
+Route::middleware(['auth', 'patient'])->prefix('patient')->group(function () {
+
+    Route::get('dashboard', 'PatientController@index')->name('patientdashboard');
+
+    });
