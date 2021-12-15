@@ -6,6 +6,12 @@
     <div class="row justify-content-center">
         <div class="col-md-8 my-5">
             <div class="card my-5">
+                @if(session('error'))
+                <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>OOPS ! </strong> {{ session('error') }}
+                </div>
+                @endif
                 <div class="card-header bg-primary text-white"> <h2 class="text-center font-weight-bold">{{ __('Login') }}</h2></div>
 
                 <div class="card-body">

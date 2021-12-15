@@ -1,11 +1,11 @@
 @extends('users.layout.app')
-@section('title', 'Manage pick up')
+@section('title', 'Manage category')
 @section('content')
 
 
     <section class="section">
         <div class="section-header">
-            <h1 class="text-center font-weight-bold"> Manage pick up</h1>
+            <h1 class="text-center font-weight-bold"> Manage category</h1>
         </div>
         <div class="container">
 

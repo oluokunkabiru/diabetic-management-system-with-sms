@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Answer;
 use Illuminate\Http\Request;
 
-class PatientController extends Controller
+class AnswerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +15,6 @@ class PatientController extends Controller
     public function index()
     {
         //
-        
-        return view('users.patient.index');
     }
 
     /**
@@ -42,10 +41,10 @@ class PatientController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Answer  $answer
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Answer $answer)
     {
         //
     }
@@ -53,10 +52,10 @@ class PatientController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Answer  $answer
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Answer $answer)
     {
         //
     }
@@ -65,10 +64,10 @@ class PatientController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Answer  $answer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Answer $answer)
     {
         //
     }
@@ -76,10 +75,10 @@ class PatientController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Answer  $answer
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Answer $answer)
     {
         //
     }

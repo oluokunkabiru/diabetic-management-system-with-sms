@@ -110,13 +110,13 @@
             </li>
 
             {{--  @if ($role->hasPermissionTo("view offence"))  --}}
-            <li class="menu-header">Service</li>
+            <li class="menu-header">Questions</li>
             <li class="dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fa fa-car"></i> <span>Services</span></a>
                 <ul class="dropdown-menu">
                      {{--  <li><a href="">Add motorcycle</a></li>  --}}
-                     <li><a href="">Driving course Services</a></li>
-                     <li><a href="">Driver License</a></li>
+                     <li><a href="{{ route('question-category.index') }}">Diabetics</a></li>
+                     <li><a href="{{ route('question-bank.index') }}">Questions Bank</a></li>
 
                 </ul>
             </li>
@@ -125,12 +125,12 @@
 
             {{--  @if ($role->hasPermissionTo("view crimes list"))  --}}
 
-            <li class="menu-header">Training</li>
+            <li class="menu-header">Patient</li>
             <li class="dropdown">
-                <a href="#" class="nav-link has-dropdown"><i class="fa fa-road"></i> <span>Training</span></a>
+                <a href="#" class="nav-link has-dropdown"><i class="fa fa-road"></i> <span>Patient</span></a>
                 <ul class="dropdown-menu">
                      {{--  <li><a href="">Add motorcycle</a></li>  --}}
-                    <li><a href="">Manage training center</a></li>
+                    <li><a href="">Question response</a></li>
                     <li><a href="">Training Schedule</a></li>
                     <li><a href="">Pick up point</a></li>
 

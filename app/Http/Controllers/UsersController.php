@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
-class PatientController extends Controller
+class UsersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,10 +16,47 @@ class PatientController extends Controller
     public function index()
     {
         //
-        
-        return view('users.patient.index');
+        $users = User::orderBy('id', 'desc')->get();
+        $roles = Role::get();
+        return view('users.manage-users', compact(['users', 'roles']));
     }
 
+    public function disables($id){
+        $user = User::where('id', $id)->first();
+        $user->status = "disabled";
+        $user->update();
+        return redirect()->back()->with('delete', $user->name .' disabled successfully');
+
+
+     }
+
+     public function enable($id){
+        $user = User::where('id', $id)->first();
+        $user->status = "active";
+        $user->update();
+        return redirect()->back()->with('success', $user->name .' enabled successfully');
+
+     }
+
+    public function readNotification($id){
+        // return $id;
+        $userUnreadNotification= auth()->user()->notifications->find($id);
+        // return $userUnreadNotification;
+        if($userUnreadNotification) {
+            $userUnreadNotification->markAsRead();
+            return back();
+        }
+
+    }
+    public function readAllNotification(){
+        $notification = auth()->user()->unreadNotifications;
+        // return $notification;
+        if($notification) {
+            $notification->markAsRead();
+        }
+        return redirect()->back();
+
+    }
     /**
      * Show the form for creating a new resource.
      *

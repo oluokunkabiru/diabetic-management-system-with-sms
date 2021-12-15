@@ -17,4 +17,4 @@
 <!-- Template CSS -->
 <link rel="stylesheet" href="{{ asset('assets/users/assets/css/style.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/users/assets/css/components.min.css') }}">
-<link rel="shortcut icon" href="{{appSettings()->getMedia('logo')->first()?appsettings()->getMedia('logo')->first()->getFullUrl():asset('assets/users/assets/img/avatar/avatar-1.png')}} " type="image/x-icon">
+{{-- <link rel="shortcut icon" href="{{ $configuration->getMedia('logo')->first()->getFullUrl()}} " type="image/x-icon"> --}}
