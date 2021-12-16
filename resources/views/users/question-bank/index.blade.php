@@ -1,13 +1,13 @@
 {{--  @if (Spatie\Permission\Models\Role::findByName(Auth::user()->getRoleNames()[0])->hasPermissionTo("view crimes list"))  --}}
 
 @extends('users.layout.app')
-@section('title', "Classes schedule")
+@section('title', "Questions Bank")
 
 @section('content')
 
 <section class="section">
     <div class="section-header">
-        <h1 class="text-center font-weight-bold"> Classes schedule </h1>
+        <h1 class="text-center font-weight-bold"> Question Bank </h1>
     </div>
     <div class="container">
 
@@ -37,7 +37,7 @@
             </div>
         @endif
             <div class="card-body">
-                <a href="#addclass" data-toggle="modal" class="btn btn-success text-uppercase ">Add classes</a>
+                <a href="#addquestion" data-toggle="modal" class="btn btn-success text-uppercase ">Add question</a>
 
                 <div class="table-responsive">
                     <table class="table table-striped v_center" id="crimeslist">
@@ -47,13 +47,11 @@
                                 <th class="text-center">
                                     ID
                                 </th>
-                                <th>Course</th>
-                                <th>Name</th>
-                                <th>Weekday</th>
-                                <th>Weekday Price</th>
-                                <th>Weekend</th>
-                                <th>Weekend price</th>
-                                <th>Date</th>
+                                <th>Category</th>
+                                <th>Questions</th>
+                                <th>Types</th>
+                                <th>Added Date</th>
+                                <th>Added By</th>
                                 <th>Action</th>
 
                             </tr>
@@ -62,30 +60,26 @@
                             @php
                                 $i = 0;
                             @endphp
-                            @forelse ($classes as $class)
+                            @forelse ($questions as $question)
                              <tr>
                                 <td>{{ ++$i }}</td>
-                                <td>{{ ucwords($class->course->name) }}</td>
-                                <td>{{ ucwords($class->name) }}</td>
-                                <td>{{ strtoupper(implode(", ",json_decode($class->weekday, true)['day'])) }}</td>
-                                <th><span class="fa">&#8358; </span>{{ number_format(json_decode($class->weekday, true)['price'],2,".",",")  }} </th>
+                                <td>{{ ucwords($question->category->name) }}</td>
+                                <td>{{ ucfirst($question->question) }}</td>
+                                <td>{{ ucfirst($question->type) }}</td>
+                                <td>{{ ucfirst($question->user->name) }}</td>
 
-                                <td>{{ strtoupper(implode(", ",json_decode($class->weekend, true)['day'])) }}</td>
-                                <th><span class="fa">&#8358; </span>{{ number_format(json_decode($class->weekend, true)['price'],2,".",",")  }} </th>
-
-
-                                <td>{{ $class->created_at }}</td>
+                                <td>{{ $question->created_at }}</td>
                             <td>
                                 <div class="row">
                                     {{-- edit offendermis details --}}
                                     {{--  @if ($authrole->hasPermissionTo("view crimes list details"))  --}}
-                                    <a href="{{ route('classes-schedule.update', $class->id) }}" class="badge badge-pill badge-primary mx-1"><span
-                                            class="fa fa-eye my-2 p-1 text-white"></span>
+                                    <a href="#editquestion" data-toggle="modal" type="{{ ucfirst($question->type) }}" catname="{{ ucwords($question->category->name) }}" catid="{{ ucwords($question->category->id) }}"  question="{{ ucfirst($question->question) }}" editurl="{{ route('question-bank.update', $question->id) }}" class="badge badge-pill badge-primary mx-1"><span
+                                            class="fa fa-edit my-2 p-1 text-white"></span>
                                         </a>
                                            {{--  @endif  --}}
                                            {{--  @if ($authrole->hasPermissionTo("print crimes receipt"))  --}}
-                                           <a href="{{ route('classes-schedule.destroy', $class->id) }}" class="badge badge-pill badge-warning mx-1"><span
-                                            class="fa fa-print my-2 p-1 text-white"></span>
+                                           <a href="#deletequestion" data-toggle="modal" question="{{ ucfirst($question->question) }}" deurl="{{ route('question-bank.destroy', $question->id) }}" class="badge badge-pill badge-danger mx-1"><span
+                                            class="fa fa-trash my-2 p-1 text-white"></span>
                                         </a>
                                             {{--  @endif  --}}
 
@@ -101,7 +95,7 @@
                             </tr>
 
                             @empty
-                                <h3 class="text-danger"> No class schedule is available at moment</h3>
+                                <h3 class="text-danger"> No question is available at moment</h3>
                             @endforelse
 
 
@@ -124,16 +118,16 @@
 </section>
 
 
-<div class="modal" id="addclass">
+<div class="modal" id="addquestion">
     <div class="modal-dialog">
         <div class="modal-content">
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title text-uppercase">Add class schedule</h4>
+                <h4 class="modal-title text-uppercase">Add question</h4>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">&times;</button>
             </div>
-            <form action="" action="{{ route('classes-schedule.store') }}" method="POST">
+            <form action="" action="{{ route('question-bank.store') }}" method="POST">
 
                 <!-- Modal body -->
                 <div class="modal-body">
@@ -141,14 +135,9 @@
 
                     {{ csrf_field() }}
                     <div class="form-group">
-                        <label for="usr">Course Schedule Name:</label>
-                        <input id="username" type="text" name="name" class="form-control" name="courses[]" required>
-
-                    </div>
-                    <div class="form-group">
-                        <label for="sel1">Select Course:</label>
-                        <select class="form-control" id="sel1" name="course">
-                            @forelse ($courses as $item)
+                        <label for="sel1">Select Causes:</label>
+                        <select class="form-control" id="sel1" name="category">
+                            @forelse ($category as $item)
                             <option value="{{ $item->id }}">{{ $item->name }}</option>
 
                             @empty
@@ -157,74 +146,25 @@
 
                         </select>
                       </div>
-                    <!-- Modal footer -->
-                      <label for="">Week Day class</label> <br>
-                    <div class="form-check-inline">
-                        <label class="form-check-label">
-                          <input type="checkbox" class="form-check-input" value="mon" name="weekday[day][mon]"> Mon
-                        </label>
-                      </div>
-                      <div class="form-check-inline">
-                        <label class="form-check-label">
-                          <input type="checkbox" class="form-check-input" value="tue" name="weekday[day][tue]">Tue
-                        </label>
-                      </div>
-                      <div class="form-check-inline">
-                        <label class="form-check-label">
-                          <input type="checkbox" class="form-check-input" value="wed" name="weekday[day][wed]">Wed
-                        </label>
-                      </div>
-                      <div class="form-check-inline">
-                        <label class="form-check-label">
-                          <input type="checkbox" class="form-check-input" value="thu" name="weekday[day][thu]">Thu
-                        </label>
-                      </div>
-                      <div class="form-check-inline">
-                        <label class="form-check-label">
-                          <input type="checkbox" class="form-check-input" value="fri" name="weekday[day][fri]">Fri
-                        </label>
-                      </div>
-                      <div class="row">
-                        <div class="form-group col-md-4">
-                            <label for="usr">Week Day price:</label>
-                            <input id="username" type="number" name="weekday[price]" class="form-control" name="courses[]" required>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="usr">Numbers of practical:</label>
-                            <input id="username" type="number" name="weekday[practical]" class="form-control" name="courses[]" required>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="usr">Duration in Minute per class:</label>
-                            <input id="username" type="number" name="weekday[duration]" class="form-control" name="courses[]" required>
-                        </div>
+
+                      <div class="form-group">
+                        <label for="sel1">Question type:</label>
+                        <select class="form-control" id="sel1" name="type">
+                            <option value="text">Text</option>
+                            <option value="number">Number</option>
+                            <option value="email">Email</option>
+                            <option value="date">Date</option>
+                        </select>
                       </div>
 
-                      {{--  <br>  --}}
-                      <label for="">Weekend class</label> <br>
-                      <div class="form-check-inline">
-                        <label class="form-check-label">
-                          <input type="checkbox" class="form-check-input" value="sat" name="weekend[day][sat]">Sat
-                        </label>
-                      </div>
-                      <div class="form-check-inline">
-                        <label class="form-check-label">
-                          <input type="checkbox" class="form-check-input" value="sun" name="weekend[day][sun]">Sun
-                        </label>
-                      </div>
-                      <div class="row">
-                        <div class="form-group col-md-4">
-                            <label for="usr">Weekend price:</label>
-                            <input id="username" type="number" name="weekend[price]" class="form-control" name="courses[]" required>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="usr">Numbers of practical:</label>
-                            <input id="username" type="number" name="weekend[practical]" class="form-control" name="courses[]" required>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="usr">Duration in Minute per class:</label>
-                            <input id="username" type="number" name="weekend[duration]" class="form-control" name="courses[]" required>
-                        </div>
-                      </div>
+                    <div class="form-group">
+                        <label for="usr">Question:</label>
+                        <input id="username" type="text" name="question" class="form-control" required>
+
+                    </div>
+
+                    <!-- Modal footer -->
+                      {{--  </div>  --}}
 
 
                     {{--  </div>  --}}
@@ -234,10 +174,104 @@
                 <div class="modal-footer">
                     <button class="btn btn-danger float-left mx-2" data-dismiss="modal">Cancel</button>
                     <button id="addcategorybtn" type="submit" class="btn  btn-success text-uppercase">Add
-                        class</button>
+                        question</button>
                 </div>
 
             </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="editquestion">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title text-uppercase">Edit question</h4>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">&times;</button>
+            </div>
+            <form id="editquestionform"  method="POST">
+
+                <!-- Modal body -->
+                <div class="modal-body">
+
+
+                    {{ csrf_field() }}
+                    @method('PUT')
+                    <div class="form-group">
+                        <label for="sel1">Select Causes:</label>
+                        <select class="form-control" id="sel1" name="category">
+                            <option value="" id="selectedcause" selected></option>
+                            @forelse ($category as $item)
+                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+
+                            @empty
+
+                            @endforelse
+
+                        </select>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="sel1">Question type:</label>
+                        <select class="form-control" id="sel1" name="type">
+                            <option value="" id="selectedtype" selected></option>
+                            <option value="text">Text</option>
+                            <option value="number">Number</option>
+                            <option value="email">Email</option>
+                            <option value="date">Date</option>
+                        </select>
+                      </div>
+
+                    <div class="form-group">
+                        <label for="usr">Question:</label>
+                        <input id="prequestion" type="text" name="question" class="form-control" required>
+
+                    </div>
+
+                    <!-- Modal footer -->
+                      {{--  </div>  --}}
+
+
+                    {{--  </div>  --}}
+
+                    {{-- <span class="badge badge-pill badge-primary" id="addmorecourse"><span class="fa fa-plus"></span></span> --}}
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger float-left mx-2" data-dismiss="modal">Cancel</button>
+                    <button id="addcategorybtn" type="submit" class="btn  btn-success text-uppercase">Update question</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="deletequestion">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title text-uppercase">Delete question: <span id="deletecentername"></span></h4>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">&times;</button>
+            </div>
+        <form id="deletecenterform" action="" method="POST">
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                    {{ csrf_field() }}
+                    @method('DELETE')
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success float-left mx-2" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-danger text-uppercase">Delete center</button>
+            </div>
+
+        </form>
         </div>
     </div>
 </div>
@@ -253,7 +287,35 @@
                     // "targets": [2, 3]
                 }]
             });
+
+
+
+            $('#editquestion').on('show.bs.modal', function(e) {
+                var type = $(e.relatedTarget).attr('type');
+                var catname = $(e.relatedTarget).attr('catname');
+                var catid = $(e.relatedTarget).attr('catid');
+                var question = $(e.relatedTarget).attr('question');
+
+            var editurl = $(e.relatedTarget).attr('editurl');
+            $("#selectedcause").val(catid);
+            $("#selectedcause").text(catname);
+            $("#selectedtype").val(type);
+            $("#selectedtype").text(type);
+            $("#prequestion").val(question);
+            $("#editquestionform").attr("action", editurl);
     })
+
+        $('#deletequestion').on('show.bs.modal', function(e) {
+                var centername = $(e.relatedTarget).attr('question');
+                var deleteurl = $(e.relatedTarget).attr('deurl');
+                $("#deletecentername").text(centername);
+                $("#deletecenterform").attr("action", deleteurl);
+            })
+
+
+    })
+
+
 </script>
 
 @endsection

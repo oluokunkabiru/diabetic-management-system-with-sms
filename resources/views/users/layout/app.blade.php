@@ -18,7 +18,7 @@
     <div id="app">
         <div class="main-wrapper main-wrapper-1">
             <div class="navbar-bg"></div>
-            @include('users.patient.layout.navbar')
+            @include('users.layout.navbar')
             <div class="main-content">
 
             @yield('content')

@@ -36,7 +36,7 @@
                 </div>
             @endif
                 <div class="card-body">
-                    <a href="#addpickup" data-toggle="modal" class="btn btn-success text-uppercase ">Add pickup</a>
+                    <a href="#addcategory" data-toggle="modal" class="btn btn-success text-uppercase ">Add category</a>
                     <div class="table-responsive">
                         <table class="table table-striped v_center" id="table-1">
 
@@ -45,7 +45,7 @@
                                     <th class="text-center">
                                         ID
                                     </th>
-                                    <th>Pick up stattion</th>
+                                    <th>Category name</th>
                                     <th>Accredit date</th>
                                     <th>Action</th>
 
@@ -55,16 +55,16 @@
                                 @php
                                     $i = 0;
                                 @endphp
-                                @forelse ($picks as $pick)
+                                @forelse ($category as $cat)
                                 <tr>
                                     <td>{{ ++$i }}</td>
-                                    <td>{{ ucwords($pick->name) }}</td>
-                                    <td>{{ $pick->created_at }}</td>
+                                    <td>{{ ucwords($cat->name) }}</td>
+                                    <td>{{ $cat->created_at }}</td>
                                 <td>
                                     <div class="row">
-                                        <a href="#editcenter" centername="{{ ucwords($pick->name) }}" editurl="{{ route('pickup-point.update', $pick->id) }}" data-toggle="modal" class="badge badge-pill badge-warning mx-1"><span
+                                        <a href="#editcenter" centername="{{ ucwords($cat->name) }}" editurl="{{ route('question-category.update', $cat->id) }}" data-toggle="modal" class="badge badge-pill badge-warning mx-1"><span
                                                 class="fa fa-edit p-1 text-white"></span></a>
-                                        <a href="#deletecenter" data-toggle="modal" centername="{{ ucwords($pick->name) }}" deurl="{{ route('pickup-point.destroy', $pick->id) }}"
+                                        <a href="#deletecenter" data-toggle="modal" centername="{{ ucwords($cat->name) }}" deurl="{{ route('question-category.destroy', $cat->id) }}"
                                             class="badge badge-pill badge-danger mx-1"><span
                                                 class="fa fa-trash p-1 text-white"></span></a>
                                     </div>
@@ -72,7 +72,7 @@
                                 </tr>
 
                                 @empty
-                                    <h3 class="text-danger"> No pickup point available at moment</h3>
+                                    <h3 class="text-danger"> No category available at moment</h3>
                                 @endforelse
 
 
@@ -95,16 +95,16 @@
     </section>
     {{--  add center  --}}
 
- <div class="modal" id="addpickup">
+ <div class="modal" id="addcategory">
     <div class="modal-dialog">
         <div class="modal-content">
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title text-uppercase">Add pick up point</h4>
+                <h4 class="modal-title text-uppercase">Add category point</h4>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">&times;</button>
             </div>
-        <form action="" action="{{ route('pickup-point.store') }}" method="POST">
+        <form action="{{ route('question-category.store') }}" method="POST">
 
             <!-- Modal body -->
             <div class="modal-body">
@@ -115,7 +115,7 @@
 
                     <!-- Modal footer -->
                     <div class="form-group">
-                        <label for="usr">Pick point name:</label>
+                        <label for="usr">Category name:</label>
                         <input id="username" type="text"
                         class="form-control @error('center') is-invalid @enderror" name="center"
                         value="{{ old('center') }}" required autocomplete="center">
@@ -129,7 +129,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-danger float-left mx-2" data-dismiss="modal">Cancel</button>
-                <button id="addcategorybtn" type="submit" class="btn  btn-success text-uppercase">Add Pick up</button>
+                <button id="addcategorybtn" type="submit" class="btn  btn-success text-uppercase">Add category</button>
             </div>
 
         </form>
@@ -149,7 +149,7 @@
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title text-uppercase">edit pick up point</h4>
+                <h4 class="modal-title text-uppercase">edit category point</h4>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">&times;</button>
             </div>
         <form id="editcenterform" action="" method="POST">
@@ -164,7 +164,7 @@
 
                     <!-- Modal footer -->
                     <div class="form-group">
-                        <label for="usr">Pick up name:</label>
+                        <label for="usr">category name:</label>
                         <input type="text"
                         class="form-control @error('center') is-invalid @enderror" id="centername" name="center"
                         value="{{ old('center') }}" required autocomplete="center">
@@ -178,7 +178,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-danger float-left mx-2" data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn  btn-success text-uppercase">Update pick up</button>
+                <button type="submit" class="btn  btn-success text-uppercase">Update category</button>
             </div>
 
         </form>
@@ -196,7 +196,7 @@
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title text-uppercase">Delete pick up: <span id="deletecentername"></span></h4>
+                <h4 class="modal-title text-uppercase">Delete category: <span id="deletecentername"></span></h4>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">&times;</button>
             </div>
         <form id="deletecenterform" action="" method="POST">

@@ -1,0 +1,6 @@
+
+@startuml hello
+A->B : good morning
+B->C : hello
+
+@enduml

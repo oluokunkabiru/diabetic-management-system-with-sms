@@ -110,13 +110,13 @@
             </li>
 
             {{--  @if ($role->hasPermissionTo("view offence"))  --}}
-            <li class="menu-header">Service</li>
+            <li class="menu-header">Questions</li>
             <li class="dropdown">
-                <a href="#" class="nav-link has-dropdown"><i class="fa fa-car"></i> <span>Services</span></a>
+                <a href="#" class="nav-link has-dropdown"><i class="fa fa-car"></i> <span>Questions</span></a>
                 <ul class="dropdown-menu">
                      {{--  <li><a href="">Add motorcycle</a></li>  --}}
-                     <li><a href="">Driving course Services</a></li>
-                     <li><a href="">Driver License</a></li>
+                     <li><a href="{{ route('question-category.index') }}">Diabetics</a></li>
+                     <li><a href="{{ route('question-bank.index') }}">Questions Bank</a></li>
 
                 </ul>
             </li>
