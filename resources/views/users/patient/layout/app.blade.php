@@ -18,14 +18,14 @@
     <div id="app">
         <div class="main-wrapper main-wrapper-1">
             <div class="navbar-bg"></div>
-            @include('users.layout.navbar')
+            @include('users.patient.layout.navbar')
             <div class="main-content">
 
             @yield('content')
 
             </div>
 
-@include('users.layout.footer')
+@include('users.patient.layout.footer')
         </div>
     </div>
 

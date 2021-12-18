@@ -94,9 +94,9 @@
 
 
             {{--  @if ($role->hasPermissionTo("view users"))  --}}
-            <li class="menu-header">Users</li>
+            <li class="menu-header">My Record</li>
             <li class="dropdown">
-                <a href="#" class="nav-link has-dropdown"><i class="fa fa-users"></i> <span>Users</span></a>
+                <a href="#" class="nav-link has-dropdown"><i class="fa fa-book"></i> <span>My Records</span></a>
                 <ul class="dropdown-menu">
                      {{-- @if ($role->hasPermissionTo("add user")) --}}
                      <li><a href="{{ route('user-management.create') }}">Add users</a></li>
@@ -109,89 +109,6 @@
                 </ul>
             </li>
 
-            {{--  @if ($role->hasPermissionTo("view offence"))  --}}
-            <li class="menu-header">Questions</li>
-            <li class="dropdown">
-                <a href="#" class="nav-link has-dropdown"><i class="fa fa-car"></i> <span>Questions</span></a>
-                <ul class="dropdown-menu">
-                     {{--  <li><a href="">Add motorcycle</a></li>  --}}
-                     <li><a href="{{ route('question-category.index') }}">Diabetics</a></li>
-                     <li><a href="{{ route('question-bank.index') }}">Questions Bank</a></li>
-
-                </ul>
-            </li>
-            {{--  @endif  --}}
-
-
-            {{--  @if ($role->hasPermissionTo("view crimes list"))  --}}
-
-            <li class="menu-header">Patient</li>
-            <li class="dropdown">
-                <a href="#" class="nav-link has-dropdown"><i class="fa fa-road"></i> <span>Patient</span></a>
-                <ul class="dropdown-menu">
-                     {{--  <li><a href="">Add motorcycle</a></li>  --}}
-                    <li><a href="">Question response</a></li>
-                    <li><a href="">Training Schedule</a></li>
-                    <li><a href="">Pick up point</a></li>
-
-
-                </ul>
-            </li>
-            {{--  @endif  --}}
-
-            {{--  @if ($role->hasPermissionTo("view offence"))  --}}
-
-            <li class="menu-header">Application</li>
-            <li class="dropdown">
-                <a href="#" class="nav-link has-dropdown"><i class="fa fa-graduation-cap"></i> <span>Application</span></a>
-                <ul class="dropdown-menu">
-                     {{--  <li><a href="">Add motorcycle</a></li>  --}}
-                     <li><a href="">Pending Application </a></li>
-                     <li><a href="">Processed application</a></li>
-
-
-                </ul>
-            </li>
-
-            <li class="menu-header">Quiz</li>
-            <li class="dropdown">
-                <a href="#" class="nav-link has-dropdown"><i class="fa fa-question"></i> <span>Quiz</span></a>
-                <ul class="dropdown-menu">
-                     {{--  <li><a href="">Add motorcycle</a></li>  --}}
-                     <li><a href="">Processed</a></li>
-                     <li><a href="">Processing</a></li>
-                     <li><a href="">Pending</a></li>
-
-                </ul>
-            </li>
-
-
-
-
-
-            {{--  @if ($role->hasPermissionTo("view permission"))  --}}
-            <li class="menu-header">Permission</li>
-            <li class="dropdown">
-                <a href="#" class="nav-link has-dropdown"><i class="fas fa-lock"></i> <span>Permission and role</span></a>
-                <ul class="dropdown-menu">
-                    {{--  @if ($role->hasPermissionTo("view role"))  --}}
-                    <li><a class="nav-link" href="{{ route('role.index') }}">Manage role</a></li>
-                    {{--  @endif  --}}
-                    {{--  @if ($role->hasPermissionTo("manage permission"))  --}}
-
-                    <li><a class="nav-link" href="{{ route('permission.index') }}">Manage permission</a></li>
-                     {{--  @endif  --}}
-                </ul>
-            </li>
-            {{--  @endif  --}}
-
-            {{--  @if ($role->hasPermissionTo("view setting"))  --}}
-            <li class="menu-header">Settings</li>
-            <li class="dropdown">
-                <a href="{{ route('settings.index') }}" class="nav-link has-dropdow"><i class="fas fa-cog"></i> <span>Settings</span></a>
-
-            </li>
-            {{--  @endif  --}}
 
 
 

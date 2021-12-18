@@ -1,6 +1,6 @@
  <!-- partial -->
- @extends('users.layout.app')
- @section('title', 'Super admin Dashboard')
+ @extends('users.patient.layout.app')
+ @section('title', 'Patient Dashboard')
  @section('content')
  <section class="section">
      <div class="section-header">
@@ -286,10 +286,10 @@
                                     <label class="fas fa-envelope"></label>
                                    <h6>{{ Auth::user()->email }}</h6>
                                 </div>
-                                <div class="form-group col-md-4 col-12">
+                                {{-- <div class="form-group col-md-4 col-12">
                                     <label class="fa fa-phoe">Role</label>
                                    <h6>{{ Auth::user()->getRoleNames()[0]}}</h6>
-                                </div>
+                                </div> --}}
                                  <div class="form-group col-md-4 col-12">
                                     <label class="fa fa-home"></label>
                                    <h6>{{ Auth::user()->address }}</h6>
